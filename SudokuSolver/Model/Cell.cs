@@ -57,7 +57,7 @@ namespace RobotModel67.BusyBuffalo.SudokuSolver.Model
             var result = new List<int>();
             var h = fila / 3;
             var k = columna / 3;
-            var cuadrito = 3 * k + h;
+            var cuadrito = 3 * h + k;
             foreach (var item in collection)
             {
                 if (Validator.ValidarEnFila(this, fila, item) &&
@@ -124,6 +124,11 @@ namespace RobotModel67.BusyBuffalo.SudokuSolver.Model
             {
                 celda.ValorTentativo = celda.ValoresPosibles.FirstOrDefault(number => number > celda.ValorTentativo);
                 Console.WriteLine(board);
+                if (board.Cells[0,2].ValorTentativo == 4 &&
+                    board.Cells[0,3].ValorTentativo == 6)
+                {
+                    //break;
+                }
                 Console.WriteLine();
                 if (celda.ValorTentativo != 0)
                 {
@@ -152,13 +157,14 @@ namespace RobotModel67.BusyBuffalo.SudokuSolver.Model
                 {
                     // se ejecuta cuando 
                     // se agotaron los valores posibles para esta celda, dar marcha atras
-                    celda.ValorTentativo = 0;
+                    //celda.ValorTentativo = 0;
                     celda = path.Find(c => c.Index == celda.Index - 1);
                     if (celda == null)
                     {
                         // hemos vuelto al principio sin encontrar una solución
                         Console.WriteLine("FALLO!!!");
                         Console.ReadLine();
+                        continuar = false;
                     }
                 }
             } while (continuar);
@@ -166,17 +172,6 @@ namespace RobotModel67.BusyBuffalo.SudokuSolver.Model
             return result;   
         }
 
-        public int GetNextValue(int fila, int columna)
-        {
-            var result = 0; 
-            var opciones = board.Cells[fila, columna].ValoresPosibles;
-            if (opciones != null && opciones.Count > 0)
-            {
-                result = opciones.First();
-                opciones.Remove(result);
-            }
-            return result;
-        }
 
     }
 
