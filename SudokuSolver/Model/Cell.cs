@@ -124,11 +124,6 @@ namespace RobotModel67.BusyBuffalo.SudokuSolver.Model
             {
                 celda.ValorTentativo = celda.ValoresPosibles.FirstOrDefault(number => number > celda.ValorTentativo);
                 Console.WriteLine(board);
-                if (board.Cells[0,2].ValorTentativo == 4 &&
-                    board.Cells[0,3].ValorTentativo == 6)
-                {
-                    //break;
-                }
                 Console.WriteLine();
                 if (celda.ValorTentativo != 0)
                 {
